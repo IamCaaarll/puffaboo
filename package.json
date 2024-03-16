@@ -1,0 +1,38 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.2.1",
+        "@tailwindcss/typography": "^0.3.0",
+        "alpinejs": "^2.7.3",
+        "autoprefixer": "^10.0.2",
+        "axios": "^0.21",
+        "grunt": "^1.6.1",
+        "grunt-bootlint": "^1.1.0",
+        "grunt-contrib-clean": "^2.0.1",
+        "grunt-contrib-concat": "^2.1.0",
+        "grunt-contrib-csslint": "^2.0.0",
+        "grunt-contrib-jshint": "^3.2.0",
+        "grunt-contrib-less": "^3.0.0",
+        "grunt-contrib-uglify": "^5.2.2",
+        "grunt-contrib-watch": "^1.1.0",
+        "grunt-image": "^6.4.0",
+        "grunt-includes": "^1.1.0",
+        "grunt-jscs": "^3.0.1",
+        "grunt-notify": "^0.4.5",
+        "grunt-text-replace": "^0.4.0",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14",
+        "postcss-import": "^12.0.1",
+        "tailwindcss": "^2.0.1"
+    }
+}
