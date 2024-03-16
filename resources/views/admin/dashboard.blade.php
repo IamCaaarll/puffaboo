@@ -16,14 +16,14 @@
         <!-- small box -->
         <div class="small-box bg-primary">
             <div class="inner">
-                <h3>{{ $kategori }}</h3>
+                <h3>{{ $branch }}</h3>
 
-                <p>Total Categories</p>
+                <p>Total Branches</p>
             </div>
             <div class="icon">
                 <i class="fa fa-cube"></i>
             </div>
-            <a href="{{ route('kategori.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('branch.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col --><!-- visit "codeastro" for more projects! -->
@@ -85,7 +85,7 @@
                 <p>Sales</p>
             </div>
             <div class="icon">
-                <i class="fa fa-dollar"></i>
+                <i class="fa fa-money"></i>
             </div>
             <a href="{{ route('penjualan.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -101,7 +101,7 @@
                 <p>Total Expenses</p>
             </div>
             <div class="icon">
-                <i class="fa fa-dollar"></i>
+                <i class="fa fa-money"></i>
             </div>
             <a href="{{ route('pengeluaran.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -117,7 +117,7 @@
                 <p>Total Purchase</p>
             </div>
             <div class="icon">
-                <i class="fa fa-dollar"></i>
+                <i class="fa fa-money"></i>
             </div>
             <a href="{{ route('pembelian.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>

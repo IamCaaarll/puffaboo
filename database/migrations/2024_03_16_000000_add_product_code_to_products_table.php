@@ -16,7 +16,7 @@ class AddProductCodeToProductsTable extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->string('product_code')
                   ->unique()
-                  ->after('category_id');
+                  ->after('branch_id');
         });
     }
 

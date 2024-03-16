@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kategori;
+use App\Models\Branch;
 use App\Models\Member;
 use App\Models\Pembelian;
 use App\Models\Pengeluaran;
@@ -15,7 +15,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $kategori = Kategori::count();
+        $branch = Branch::count();
         $produk = Produk::count();
         $supplier = Supplier::count();
         $member = Member::count();
@@ -45,7 +45,7 @@ class DashboardController extends Controller
         $tanggal_awal = date('Y-m-01');
 
         if (auth()->user()->level == 1) {
-            return view('admin.dashboard', compact('kategori', 'produk', 'supplier', 'member', 'penjualan', 'pengeluaran', 'pembelian', 'tanggal_awal', 'tanggal_akhir', 'data_tanggal', 'data_pendapatan'));
+            return view('admin.dashboard', compact('branch', 'produk', 'supplier', 'member', 'penjualan', 'pengeluaran', 'pembelian', 'tanggal_awal', 'tanggal_akhir', 'data_tanggal', 'data_pendapatan'));
         } else {
             return view('kasir.dashboard');
         }

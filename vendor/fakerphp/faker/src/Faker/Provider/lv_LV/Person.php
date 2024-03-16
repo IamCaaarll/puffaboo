@@ -83,7 +83,6 @@ class Person extends \Faker\Provider\Person
     ];
 
     /**
-     * {@link} https://lv.wikipedia.org/wiki/Kategorija:Latvie%C5%A1u_uzv%C4%81rdi
      */
     protected static $lastName = [
         'Abuls', 'Aizupe', 'Akmentiņš', 'Alksnis', 'Alunāns', 'Ancāns', 'Andžāns', 'Ankipāns', 'Aparjode', 'Apine', 'Apinis', 'Aploks', 'Apse', 'Apsītis', 'Arājs', 'Asars', 'Astra', 'Augstkalns', 'Augškalns', 'Auniņš', 'Auns', 'Auškāps', 'Auziņa', 'Auziņš', 'Avens', 'Avens', 'Avotiņš', 'Avots',

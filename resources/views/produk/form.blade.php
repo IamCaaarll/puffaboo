@@ -19,11 +19,11 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="id_kategori" class="col-lg-2 col-lg-offset-1 control-label">Category</label>
+                        <label for="branch_id" class="col-lg-2 col-lg-offset-1 control-label">Branch</label>
                         <div class="col-lg-6">
-                            <select name="id_kategori" id="id_kategori" class="form-control" required>
-                                <option value="">Select Category</option>
-                                @foreach ($kategori as $key => $item)
+                            <select name="branch_id" id="branch_id" class="form-control" required>
+                                <option value="">Select Branch</option>
+                                @foreach ($branch as $key => $item)
                                 <option value="{{ $key }}">{{ $item }}</option>
                                 @endforeach
                             </select>

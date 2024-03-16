@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Kategori;
+use App\Models\Branch;
 
-class KategoriController extends Controller
+class BranchController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,25 +14,25 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return view('kategori.index');
+        return view('branch.index');
     }
 
     public function data()
     {
-        $kategori = Kategori::orderBy('id_kategori', 'desc')->get();
+        $branch = Branch::orderBy('branch_id', 'desc')->get();
 
         return datatables()
-            ->of($kategori)
+            ->of($branch)
             ->addIndexColumn()
-            ->addColumn('aksi', function ($kategori) {
+            ->addColumn('action', function ($branch) {
                 return '
                 <div class="btn-group">
-                    <button onclick="editForm(`'. route('kategori.update', $kategori->id_kategori) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
-                    <button onclick="deleteData(`'. route('kategori.destroy', $kategori->id_kategori) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button onclick="editForm(`'. route('branch.update', $branch->branch_id) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
+                    <button onclick="deleteData(`'. route('branch.destroy', $branch->branch_id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
-            ->rawColumns(['aksi'])
+            ->rawColumns(['action'])
             ->make(true);
     }
 
@@ -54,9 +54,9 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $kategori = new Kategori();
-        $kategori->nama_kategori = $request->nama_kategori;
-        $kategori->save();
+        $branch = new Branch();
+        $branch->branch_name = $request->branch_name;
+        $branch->save();
 
         return response()->json('Data saved successfully', 200);
     }
@@ -69,9 +69,9 @@ class KategoriController extends Controller
      */
     public function show($id)
     {
-        $kategori = Kategori::find($id);
+        $branch = Branch::find($id);
 
-        return response()->json($kategori);
+        return response()->json($branch);
     }
 
     /**
@@ -94,9 +94,9 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kategori = Kategori::find($id);
-        $kategori->nama_kategori = $request->nama_kategori;
-        $kategori->update();
+        $branch = Branch::find($id);
+        $branch->branch_name = $request->branch_name;
+        $branch->save();
 
         return response()->json('Data saved successfully', 200);
     }
@@ -109,8 +109,8 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $kategori = Kategori::find($id);
-        $kategori->delete();
+        $branch = Branch::find($id);
+        $branch->delete();
 
         return response(null, 204);
     }

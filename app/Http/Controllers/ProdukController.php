@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kategori;
+use App\Models\Branch;
 use Illuminate\Http\Request;
 use App\Models\Produk;
 use PDF;
@@ -16,15 +16,15 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        $kategori = Kategori::all()->pluck('nama_kategori', 'id_kategori');
+        $branch = Branch::all()->pluck('branch_name', 'branch_id');
 
-        return view('produk.index', compact('kategori'));
+        return view('produk.index', compact('branch'));
     }
 
     public function data()
     {
-        $produk = Produk::leftJoin('kategori', 'kategori.id_kategori', 'produk.id_kategori')
-            ->select('produk.*', 'nama_kategori')
+        $produk = Produk::leftJoin('branch', 'branch.branch_id', 'produk.branch_id')
+            ->select('produk.*', 'branch_name')
             // ->orderBy('kode_produk', 'asc')
             ->get();
 
