@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class BuatMemberTable extends Migration
+class CreateCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class BuatMemberTable extends Migration
      */
     public function up()
     {
-        Schema::create('member', function (Blueprint $table) {
-            $table->increments('id_member');
-            $table->string('kode_member')->unique();
-            $table->string('nama');
-            $table->text('alamat')->nullable();
-            $table->string('telepon');
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('category_id');
+            $table->string('category_name')->unique();
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class BuatMemberTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('member');
+        Schema::dropIfExists('categories');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class EditIdMemberToPenjualanTable extends Migration
+class EditMemberIdInSalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class EditIdMemberToPenjualanTable extends Migration
      */
     public function up()
     {
-        Schema::table('penjualan', function (Blueprint $table) {
-            $table->integer('id_member')
+        Schema::table('sales', function (Blueprint $table) {
+            $table->integer('member_id')
                   ->nullable()
                   ->change();
         });
@@ -27,8 +27,8 @@ class EditIdMemberToPenjualanTable extends Migration
      */
     public function down()
     {
-        Schema::table('penjualan', function (Blueprint $table) {
-            $table->integer('id_member')
+        Schema::table('sales', function (Blueprint $table) {
+            $table->integer('member_id')
                   ->change();
         });
     }

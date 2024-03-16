@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TambahForeignKeyToProdukTable extends Migration
+class AddForeignKeyToProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class TambahForeignKeyToProdukTable extends Migration
      */
     public function up()
     {
-        Schema::table('produk', function (Blueprint $table) {
-            $table->foreign('id_kategori')
-                  ->references('id_kategori')
-                  ->on('kategori')
+        Schema::table('products', function (Blueprint $table) {
+            $table->foreign('category_id')
+                  ->references('category_id')
+                  ->on('categories')
                   ->onUpdate('restrict')
                   ->onDelete('restrict');
         });
@@ -29,8 +29,8 @@ class TambahForeignKeyToProdukTable extends Migration
      */
     public function down()
     {
-        Schema::table('produk', function (Blueprint $table) {
-            $table->dropForeign('produk_id_kategori_foreign');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropForeign('products_category_id_foreign');
         });
     }
 }

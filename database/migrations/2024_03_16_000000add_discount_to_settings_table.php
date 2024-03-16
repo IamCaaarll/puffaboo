@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class BuatPengeluaranTable extends Migration
+class AddDiscountToSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class BuatPengeluaranTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengeluaran', function (Blueprint $table) {
-            $table->increments('id_pengeluaran');
-            $table->text('deskripsi');
-            $table->integer('nominal');
-            $table->timestamps();
+        Schema::table('settings', function (Blueprint $table) {
+            $table->smallInteger('discount')
+                  ->default(0)
+                  ->after('note_type');
         });
     }
 
@@ -28,6 +27,9 @@ class BuatPengeluaranTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengeluaran');
+        Schema::table('settings', function (Blueprint $table) {
+            $table->dropColumn('discount');
+        });
     }
 }
+

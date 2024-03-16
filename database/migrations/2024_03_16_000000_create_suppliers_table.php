@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TambahDiskonToSettingTable extends Migration
+class CreateSuppliersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class TambahDiskonToSettingTable extends Migration
      */
     public function up()
     {
-        Schema::table('setting', function (Blueprint $table) {
-            $table->smallInteger('diskon')
-                  ->default(0)
-                  ->after('tipe_nota');
+        Schema::create('suppliers', function (Blueprint $table) {
+            $table->increments('supplier_id');
+            $table->string('name');
+            $table->text('address')->nullable();
+            $table->string('phone');
+            $table->timestamps();
         });
     }
 
@@ -27,8 +29,6 @@ class TambahDiskonToSettingTable extends Migration
      */
     public function down()
     {
-        Schema::table('setting', function (Blueprint $table) {
-            $table->dropColumn('diskon');
-        });
+        Schema::dropIfExists('suppliers');
     }
 }

@@ -16,13 +16,13 @@ class SettingTableSeeder extends Seeder
     {
         DB::table('setting')->insert([
             'id_setting' => 1,
-            'nama_perusahaan' => 'Toko Ku',
-            'alamat' => 'Jl. Kibandang Samaran Ds. Slangit',
-            'telepon' => '081234779987',
-            'tipe_nota' => 1, // kecil
-            'diskon' => 5,
-            'path_logo' => '/img/logo.png',
-            'path_kartu_member' => '/img/member.png',
+            'company_name' => 'Puff a Boo',
+            'address' => 'Pasig',
+            'phone' => '09123456789',
+            'note_type' => 1, 
+            'discount' => 5,
+            'logo_path' => '/img/logo.png',
+            'member_card_path' => '/img/member.png',
         ]);
     }
 }
