@@ -12,4 +12,9 @@ class Product extends Model
     protected $table = 'm_product';
     protected $primaryKey = 'product_id';
     protected $guarded = [];
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id','branch_id');
+    }
 }

@@ -8,12 +8,17 @@ use App\Models\SalesDetail;
 use App\Models\Product;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SalesDetailController extends Controller
 {
     public function index()
     {
-        $product = Product::orderBy('product_name')->get();
+        if(auth()->user()->level == 2){
+            $product = Product::where('branch_id', auth()->user()->branch_id)->orderBy('product_name')->get();
+        }else{
+             $product = Product::orderBy('product_name')->get(); 
+        }
         $member = Member::orderBy('name')->get();
         $discount = Setting::first()->discount ?? 0;
 

@@ -15,8 +15,6 @@ class SalesController extends Controller
     public function index()
     {
 
-        Log::info('Response Session Trans ID'. session('sale_id'));
-
         return view('sales.index');
     }
 
@@ -43,7 +41,10 @@ class SalesController extends Controller
                 $member = $sales->member->member_code ?? '';
                 return '<span class="label label-success">'. $member .'</span>';
             })
-            ->editColumn('diskon', function ($sales) {
+            ->addColumn('branch', function ($sales) {
+                return $sales->user->branch->branch_name ?? '';
+            })
+            ->editColumn('discount', function ($sales) {
                 return $sales->discount . '%';
             })
             ->editColumn('cashier', function ($sales) {
@@ -112,7 +113,7 @@ class SalesController extends Controller
                 return '<span class="label label-success">'. $detail->product->product_code .'</span>';
             })
             ->addColumn('product_name', function ($detail) {
-                return $detail->product->product_name;
+                return $detail->product->brand. '('.$detail->product->product_name.')';
             })
             ->addColumn('selling_price', function ($detail) {
                 return '₱ '. format_money($detail->selling_price);

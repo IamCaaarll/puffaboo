@@ -18,6 +18,7 @@
                     <thead>
                         <th width="5%">#</th>
                         <th>Date</th>
+                        <th>Branch</th>
                         <th>Member Code</th>
                         <th>Quantity</th>
                         <th>Total Price</th>
@@ -51,6 +52,7 @@
             columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},
                 {data: 'date'},
+                {data: 'branch'},
                 {data: 'member_code'},
                 {data: 'total_item'},
                 {data: 'total_price'},

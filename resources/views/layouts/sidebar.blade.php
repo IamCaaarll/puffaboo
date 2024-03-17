@@ -74,7 +74,12 @@
             <li class="header">REPORT</li>
             <li>
                 <a href="{{ route('report.index') }}">
-                    <i class="fa fa-file-pdf-o"></i> <span>Income</span>
+                    <i class="fa fa-file-pdf-o"></i> <span>Daily Income</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('report_product.index') }}">
+                    <i class="fa fa-file-pdf-o"></i> <span>Product Income</span>
                 </a>
             </li>
             <li class="header">SYSTEM</li>

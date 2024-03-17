@@ -20,7 +20,7 @@
                             <tr>
                                 <td width="5%">{{ $key+1 }}</td>
                                 <td><span class="label label-success">{{ $item->product_code }}</span></td>
-                                <td>{{ $item->product_name }}</td>
+                                <td>{{ $item->brand.' ('.$item->product_name.')'  }}</td>
                                 <td>{{ $item->purchase_price }}</td>
                                 <td> 
                                     <a href="#" class="btn btn-primary btn-xs btn-flat"

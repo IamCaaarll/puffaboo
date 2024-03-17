@@ -649,6 +649,7 @@ class ComposerStaticInit6a65194e90853bfca7a60b5ce946a15b
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
         'App\\Http\\Controllers\\BranchController' => __DIR__ . '/../..' . '/app/Http/Controllers/BranchController.php',
         'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportController.php',
+        'App\\Http\\Controllers\\ReportProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportProductController.php',
         'App\\Http\\Controllers\\MemberController' => __DIR__ . '/../..' . '/app/Http/Controllers/MemberController.php',
         'App\\Http\\Controllers\\PurchasesController' => __DIR__ . '/../..' . '/app/Http/Controllers/PurchasesController.php',
         'App\\Http\\Controllers\\PurchasesDetailController' => __DIR__ . '/../..' . '/app/Http/Controllers/PurchasesDetailController.php',

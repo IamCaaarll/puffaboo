@@ -22,4 +22,9 @@ class Sales extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+    
+    public function salesDetails()
+    {
+        return $this->hasMany(SalesDetail::class, 'sale_id', 'sale_id');
+    }
 }

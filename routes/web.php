@@ -4,6 +4,7 @@ use App\Http\Controllers\{
     DashboardController,
     BranchController,
     ReportController,
+    ReportProductController,
     ProductController,
     MemberController,
     ExpensesController,
@@ -85,8 +86,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => 'level:1'], function () {
         Route::get('/report', [ReportController::class, 'index'])->name('report.index');
-        Route::get('/report/data/{start}/{end}', [ReportController::class, 'data'])->name('report.data');
-        Route::get('/report/pdf/{start}/{end}', [ReportController::class, 'exportPDF'])->name('report.export_pdf');
+        Route::get('/report/data/{branch_id}/{start}/{end}', [ReportController::class, 'data'])->name('report.data');
+        Route::get('/report/pdf/{branch_id}/{start}/{end}', [ReportController::class, 'exportPDF'])->name('report.export_pdf');
+        
+        Route::get('/report_product', [ReportProductController::class, 'index'])->name('report_product.index');
+        Route::get('/report_product/data/{branch_id}/{start}/{end}', [ReportProductController::class, 'data'])->name('report_product.data');
+        Route::get('/report_product/pdf/{branch_id}/{start}/{end}', [ReportProductController::class, 'exportPDF'])->name('report_product.export_pdf');
 
         Route::get('/user/data', [UserController::class, 'data'])->name('user.data');
         Route::resource('/user', UserController::class);

@@ -21,7 +21,7 @@
                 <p>Total Branches</p>
             </div>
             <div class="icon">
-                <i class="fa fa-cube"></i>
+                <i class="fa fa-institution"></i>
             </div>
             <a href="{{ route('branch.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -85,7 +85,7 @@
                 <p>Sales</p>
             </div>
             <div class="icon">
-                <i class="fa fa-money"></i>
+                <i class="fa fa-line-chart"></i>
             </div>
             <a href="{{ route('sales.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -101,7 +101,7 @@
                 <p>Total Expenses</p>
             </div>
             <div class="icon">
-                <i class="fa fa-money"></i>
+                <i class="fa fa-line-chart"></i>
             </div>
             <a href="{{ route('expenses.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -117,7 +117,7 @@
                 <p>Total Purchase</p>
             </div>
             <div class="icon">
-                <i class="fa fa-money"></i>
+                <i class="fa fa-line-chart"></i>
             </div>
             <a href="{{ route('purchases.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>

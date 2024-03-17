@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Daily Income Report ({{ us_date($startDate, false) }} - {{ us_date($endDate, false) }})
+Product Income Report ({{ us_date($startDate, false) }} - {{ us_date($endDate, false) }})
 @endsection
 
 @push('css')
@@ -19,17 +19,19 @@ Daily Income Report ({{ us_date($startDate, false) }} - {{ us_date($endDate, fal
         <div class="box">
             <div class="box-header with-border">
                 <button onclick="updatePeriode()" class="btn btn-primary btn-flat"><i class="fa fa-plus-circle"></i> Change Date</button>
-                <a href="{{ route('report.export_pdf', [$branch_id,$startDate, $endDate]) }}" target="_blank" class="btn btn-success btn-flat"><i class="fa fa-file-excel-o"></i> Export PDF</a> 
+                <a href="{{ route('report_product.export_pdf', [$branch_id,$startDate, $endDate]) }}" target="_blank" class="btn btn-success btn-flat"><i class="fa fa-file-excel-o"></i> Export PDF</a> 
             </div>
             <div class="box-body table-responsive">
-                <table class="table table-stiped table-bordered table-hover">
+                <table class="table table-stiped table-bordered table-sales table-hover">
                     <thead>
                         <th width="5%">#</th>
                         <th>Date</th>
-                        <th>Sale</th>
-                        <th>Purchase</th>
-                        <th>Expenses</th>
-                        <th>Income</th>
+                        <th>Branch</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Selling Price</th>
+                        <th>Purchase Price</th>
                     </thead>
                 </table>
             </div>
@@ -37,7 +39,7 @@ Daily Income Report ({{ us_date($startDate, false) }} - {{ us_date($endDate, fal
     </div>
 </div>
 
-@includeIf('report.form')
+@includeIf('report_product.form')
 @endsection
 
 @push('scripts')
@@ -46,25 +48,24 @@ Daily Income Report ({{ us_date($startDate, false) }} - {{ us_date($endDate, fal
     let table;
 
     $(function () {
-        table = $('.table').DataTable({
+        table = $('.table-sales').DataTable({
             responsive: true,
             processing: true,
             serverSide: true,
             autoWidth: false,
             ajax: {
-                url: '{{ route('report.data', [$branch_id,$startDate, $endDate]) }}',
+                url: '{{ route('report_product.data', [$branch_id,$startDate, $endDate]) }}',
             },
             columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},
                 {data: 'date'},
-                {data: 'sales'},
-                {data: 'purchases'},
-                {data: 'expenses'},
-                {data: 'income'}
-            ],
-            dom: 'Brt',
-            bSort: false,
-            bPaginate: false,
+                {data: 'branch'},
+                {data: 'product_name'},
+                {data: 'quantity'},
+                {data: 'subtotal'},
+                {data: 'selling_price'},
+                {data: 'purchase_price'},
+            ]
         });
 
         $('.datepicker').datepicker({

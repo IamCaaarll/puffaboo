@@ -12,4 +12,8 @@ class Branch extends Model
     protected $table = 'm_branch';
     protected $primaryKey = 'branch_id';
     protected $guarded = [];
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'branch_id');
+    }
 }
