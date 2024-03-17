@@ -17,16 +17,16 @@ class UserTableSeeder extends Seeder
         $users = array(
             [
                 'name' => 'Administrator',
-                'email' => 'admin@mail.com',
-                'password' => bcrypt('codeastro.com'),
-                'foto' => '/img/user.jpg',
+                'email' => 'puffaboo@gmail.com',
+                'password' => bcrypt('admin'),
+                'photo' => '/img/user.jpg',
                 'level' => 1
             ],
             [
-                'name' => 'CodeAstro',
-                'email' => 'astro@mail.com',
-                'password' => bcrypt('codeastro.com'),
-                'foto' => '/img/user.jpg',
+                'name' => 'User',
+                'email' => 'user@mail.com',
+                'password' => bcrypt('admin'),
+                'photo' => '/img/user.jpg',
                 'level' => 2
             ]
         );

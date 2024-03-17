@@ -21,28 +21,28 @@ class MemberController extends Controller
 
     public function data()
     {
-        $member = Member::orderBy('kode_member')->get();
+        $member = Member::orderBy('member_code')->get();
 
         return datatables()
             ->of($member)
             ->addIndexColumn()
-            ->addColumn('select_all', function ($produk) {
+            ->addColumn('select_all', function ($product) {
                 return '
-                    <input type="checkbox" name="id_member[]" value="'. $produk->id_member .'">
+                    <input type="checkbox" name="member_id[]" value="'. $product->member_id .'">
                 ';
             })
-            ->addColumn('kode_member', function ($member) {
-                return '<span class="label label-success">'. $member->kode_member .'<span>';
+            ->addColumn('member_code', function ($member) {
+                return '<span class="label label-success">'. $member->member_code .'<span>';
             })
-            ->addColumn('aksi', function ($member) {
+            ->addColumn('action', function ($member) {
                 return '
                 <div class="btn-group">
-                    <button type="button" onclick="editForm(`'. route('member.update', $member->id_member) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
-                    <button type="button" onclick="deleteData(`'. route('member.destroy', $member->id_member) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button type="button" onclick="editForm(`'. route('member.update', $member->member_id) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
+                    <button type="button" onclick="deleteData(`'. route('member.destroy', $member->member_id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
-            ->rawColumns(['aksi', 'select_all', 'kode_member'])
+            ->rawColumns(['action', 'select_all', 'member_code'])
             ->make(true);
     }
 
@@ -65,13 +65,13 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $member = Member::latest()->first() ?? new Member();
-        $kode_member = (int) $member->kode_member +1;
+        $member_code = (int) $member->member_code +1;
 
         $member = new Member();
-        $member->kode_member = tambah_nol_didepan($kode_member, 5);
-        $member->nama = $request->nama;
-        $member->telepon = $request->telepon;
-        $member->alamat = $request->alamat;
+        $member->member_code = add_zero_in_front($member_code, 5);
+        $member->name = $request->name;
+        $member->phone = $request->phone;
+        $member->address = $request->address;
         $member->save();
 
         return response()->json('Data saved successfully', 200);
@@ -114,7 +114,6 @@ class MemberController extends Controller
 
         return response()->json('Data saved successfully', 200);
     }
-    // visit "codeastro" for more projects!
     /**
      * Remove the specified resource from storage.
      *
@@ -129,10 +128,10 @@ class MemberController extends Controller
         return response(null, 204);
     }
 
-    public function cetakMember(Request $request)
+    public function printMember(Request $request)
     {
         $datamember = collect(array());
-        foreach ($request->id_member as $id) {
+        foreach ($request->member_id as $id) {
             $member = Member::find($id);
             $datamember[] = $member;
         }
@@ -141,7 +140,7 @@ class MemberController extends Controller
         $setting    = Setting::first();
 
         $no  = 1;
-        $pdf = PDF::loadView('member.cetak', compact('datamember', 'no', 'setting'));
+        $pdf = PDF::loadView('member.print', compact('datamember', 'no', 'setting'));
         $pdf->setPaper(array(0, 0, 566.93, 850.39), 'potrait');
         return $pdf->stream('member.pdf');
     }

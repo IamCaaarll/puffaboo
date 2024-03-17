@@ -9,7 +9,7 @@ class Member extends Model
 {
     use HasFactory;
 
-    protected $table = 'member';
-    protected $primaryKey = 'id_member';
+    protected $table = 'm_member';
+    protected $primaryKey = 'member_id';
     protected $guarded = [];
 }

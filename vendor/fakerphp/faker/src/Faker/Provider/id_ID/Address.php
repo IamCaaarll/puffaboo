@@ -4,10 +4,7 @@ namespace Faker\Provider\id_ID;
 
 class Address extends \Faker\Provider\Address
 {
-    /**
-     * @see http://bandung.go.id/images/download/daftarruasjalan.htm
-     * @see https://id.wikipedia.org/wiki/Kategori:Jalan_di_Jakarta
-     */
+    
     protected static $street = [
         'Abang', 'Abdul', 'Abdul Muis', 'Abdul Rahmat', 'Abdul. Muis', 'Abdullah',
         'Aceh', 'Achmad', 'Achmad Yani', 'Acordion', 'Adisucipto',

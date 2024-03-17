@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Branch;
 
 class User extends Authenticatable
 {
@@ -62,5 +63,10 @@ class User extends Authenticatable
     public function scopeIsNotAdmin($query)
     {
         return $query->where('level', '!=', 1);
+    }
+
+    public function branch()
+    {
+        return $this->hasOne(Branch::class, 'branch_id', 'branch_id');
     }
 }

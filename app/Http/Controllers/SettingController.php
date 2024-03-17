@@ -20,11 +20,11 @@ class SettingController extends Controller
     public function update(Request $request)
     {
         $setting = Setting::first();
-        $setting->nama_perusahaan = $request->nama_perusahaan;
-        $setting->telepon = $request->telepon;
-        $setting->alamat = $request->alamat;
-        $setting->diskon = $request->diskon;
-        $setting->tipe_nota = $request->tipe_nota;
+        $setting->company_name = $request->company_name;
+        $setting->phone = $request->phone;
+        $setting->address = $request->address;
+        $setting->discount = $request->discount;
+        $setting->note_type = $request->note_type;
 
         if ($request->hasFile('path_logo')) {
             $file = $request->file('path_logo');
@@ -34,12 +34,12 @@ class SettingController extends Controller
             $setting->path_logo = "/img/$nama";
         }
 
-        if ($request->hasFile('path_kartu_member')) {
-            $file = $request->file('path_kartu_member');
+        if ($request->hasFile('member_card_path')) {
+            $file = $request->file('member_card_path');
             $nama = 'logo-' . date('Y-m-dHis') . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('/img'), $nama);
 
-            $setting->path_kartu_member = "/img/$nama";
+            $setting->member_card_path = "/img/$nama";
         }
 
         $setting->update();

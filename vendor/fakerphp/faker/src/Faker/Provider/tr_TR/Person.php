@@ -43,7 +43,6 @@ class Person extends \Faker\Provider\Person
     ];
 
     /**
-     * @see http://tr.wikipedia.org/wiki/Kategori:T%C3%BCrk%C3%A7e_soyadlar%C4%B1
      *
      * @var array Turkish last names.
      */
