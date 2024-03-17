@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ $setting->nama_perusahaan }} | @yield('title')</title>
+    <title>{{ $setting->company_name }} | @yield('title')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -35,7 +35,7 @@
 
     @stack('css')
 </head>
-<!-- visit "codeastro" for more projects! -->
+
 <body class="hold-transition skin-purple sidebar-mini">
     <div class="wrapper">
 
@@ -77,7 +77,8 @@
     <script src="{{ asset('AdminLTE-2/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- Moment -->
     <script src="{{ asset('AdminLTE-2/bower_components/moment/min/moment.min.js') }}"></script>
-
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- DataTables -->
     <script src="{{ asset('AdminLTE-2/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('AdminLTE-2/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>

@@ -14,20 +14,20 @@ class SupplierController extends Controller
 
     public function data()
     {
-        $supplier = Supplier::orderBy('id_supplier', 'desc')->get();
+        $supplier = Supplier::orderBy('supplier_id', 'desc')->get();
 
         return datatables()
             ->of($supplier)
             ->addIndexColumn()
-            ->addColumn('aksi', function ($supplier) {
+            ->addColumn('action', function ($supplier) {
                 return '
                 <div class="btn-group">
-                    <button type="button" onclick="editForm(`'. route('supplier.update', $supplier->id_supplier) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
-                    <button type="button" onclick="deleteData(`'. route('supplier.destroy', $supplier->id_supplier) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button type="button" onclick="editForm(`'. route('supplier.update', $supplier->supplier_id) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
+                    <button type="button" onclick="deleteData(`'. route('supplier.destroy', $supplier->supplier_id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
-            ->rawColumns(['aksi'])
+            ->rawColumns(['action'])
             ->make(true);
     }
 
@@ -77,7 +77,7 @@ class SupplierController extends Controller
     {
         //
     }
-    // visit "codeastro" for more projects!
+    
     /**
      * Update the specified resource in storage.
      *
@@ -105,4 +105,3 @@ class SupplierController extends Controller
         return response(null, 204);
     }
 }
-// visit "codeastro" for more projects!

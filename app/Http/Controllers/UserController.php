@@ -4,31 +4,47 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Branch;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index()
     {
-        return view('user.index');
+        $branch = Branch::where('active','1')->pluck('branch_name', 'branch_id');
+        return view('user.index', compact('branch'));
     }
 
     public function data()
     {
-        $user = User::isNotAdmin()->orderBy('id', 'desc')->get();
+            $user = User::isNotAdmin()
+            ->leftJoin('m_branch', 'm_branch.branch_id', 'users.branch_id')
+            ->select('users.*', 'branch_name', 'active')
+            ->orderBy('users.id', 'desc')
+            ->get();
 
         return datatables()
             ->of($user)
             ->addIndexColumn()
-            ->addColumn('aksi', function ($user) {
+            ->addColumn('action', function ($user) {
+                if($user->active == 1)
+                {
                 return '
-                <div class="btn-group">
+                    <div class="btn-group">
                     <button type="button" onclick="editForm(`'. route('user.update', $user->id) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
                     <button type="button" onclick="deleteData(`'. route('user.destroy', $user->id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
-                </div>
-                ';
+                    </div>';
+                }else { 
+                    return '
+                    <div class="btn-group">
+                    <button type="button" onclick="editForm(`'. route('user.update', $user->id) .'`)" class="btn btn-xs btn-primary btn-flat"><i class="fa fa-pencil"></i></button>
+                    <button type="button" onclick="deleteData(`'. route('user.destroy', $user->id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    
+                    <span class="label label-danger" style="margin-left: 5px;">Branch Close</span>
+                    </div>';
+                }
             })
-            ->rawColumns(['aksi'])
+            ->rawColumns(['action'])
             ->make(true);
     }
 
@@ -53,9 +69,10 @@ class UserController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->branch_id = $request->branch_id;
         $user->password = bcrypt($request->password);
         $user->level = 2;
-        $user->foto = '/img/user.png';
+        $user->picture = '/img/user.png';
         $user->save();
 
         return response()->json('Data saved successfully', 200);
@@ -97,6 +114,7 @@ class UserController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->branch_id = $request->branch_id;
         if ($request->has('password') && $request->password != "") 
             $user->password = bcrypt($request->password);
         $user->update();
@@ -117,13 +135,13 @@ class UserController extends Controller
         return response(null, 204);
     }
 
-    public function profil()
+    public function profile()
     {
-        $profil = auth()->user();
-        return view('user.profil', compact('profil'));
+        $profile = auth()->user();
+        return view('user.profile', compact('profile'));
     }
 
-    public function updateProfil(Request $request)
+    public function updateProfile(Request $request)
     {
         $user = auth()->user();
         
@@ -140,12 +158,12 @@ class UserController extends Controller
             }
         }
 
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
+        if ($request->hasFile('picture')) {
+            $file = $request->file('picture');
             $nama = 'logo-' . date('YmdHis') . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('/img'), $nama);
 
-            $user->foto = "/img/$nama";
+            $user->picture = "/img/$nama";
         }
 
         $user->update();

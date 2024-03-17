@@ -13,10 +13,10 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('m_members', function (Blueprint $table) {
             $table->increments('member_id');
-            $table->string('member_code')->unique();
-            $table->string('name');
+            $table->string('member_code');
+            $table->string('name')->unique();
             $table->text('address')->nullable();
             $table->string('phone');
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('m_members');
     }
 }

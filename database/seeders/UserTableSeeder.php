@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder
         $users = array(
             [
                 'name' => 'Administrator',
-                'email' => 'admin@mail.com',
+                'email' => 'puffaboo@gmail.com',
                 'password' => bcrypt('admin'),
                 'photo' => '/img/user.jpg',
                 'level' => 1

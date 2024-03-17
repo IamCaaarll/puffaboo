@@ -12,6 +12,18 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
+                        <label for="name" class="col-lg-3 col-lg-offset-1 control-label">Branch</label>
+                        <div class="col-lg-6">
+                            <select name="branch_id" id="branch_id" class="form-control" required>
+                                <option value="">Select Branch</option>
+                                @foreach ($branch as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="name" class="col-lg-3 col-lg-offset-1 control-label">Name</label>
                         <div class="col-lg-6">
                             <input type="text" name="name" id="name" class="form-control" required autofocus>

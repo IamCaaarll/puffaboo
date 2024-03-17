@@ -9,7 +9,7 @@ class Setting extends Model
 {
     use HasFactory;
 
-    protected $table = 'setting';
+    protected $table = 'm_settings';
     protected $primaryKey = 'id_setting';
     protected $guarded = [];
 }

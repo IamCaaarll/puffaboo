@@ -19,6 +19,28 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="phone" class="col-lg-2 col-lg-offset-1 control-label">Telephone</label>
+                    <div class="col-lg-6">
+                        <input type="text" name="phone" id="phone" class="form-control" required>
+                        <span class="help-block with-errors"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="address" class="col-lg-2 col-lg-offset-1 control-label">Address</label>
+                    <div class="col-lg-6">
+                        <textarea name="address" id="address" rows="3" class="form-control"></textarea>
+                        <span class="help-block with-errors"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="active" class="col-lg-2 col-lg-offset-1 control-label">Active</label>
+                    <div class="col-lg-6">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="active" name="active" value="1" checked>
+                        </div>
+                    </div>
+                </div>
                 <div class="modal-footer">
                     <button class="btn btn-sm btn-flat btn-success"><i class="fa fa-save"></i> Save</button>
                     <button type="button" class="btn btn-sm btn-flat btn-danger" data-dismiss="modal"><i class="fa fa-arrow-circle-left"></i> Cancel</button>
@@ -27,4 +49,3 @@
         </form>
     </div>
 </div>
-<!-- visit "codeastro" for more projects! -->

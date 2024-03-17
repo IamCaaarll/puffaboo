@@ -21,23 +21,23 @@
                         <i class="icon fa fa-check"></i> Changes saved successfully
                     </div>
                     <div class="form-group row">
-                        <label for="nama_perusahaan" class="col-lg-2 control-label">Company name</label>
+                        <label for="company_name" class="col-lg-2 control-label">Company name</label>
                         <div class="col-lg-6">
-                            <input type="text" name="nama_perusahaan" class="form-control" id="nama_perusahaan" required autofocus>
+                            <input type="text" name="company_name" class="form-control" id="company_name" required autofocus>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="telepon" class="col-lg-2 control-label">Telephone</label>
+                        <label for="phone" class="col-lg-2 control-label">Telephone</label>
                         <div class="col-lg-6">
-                            <input type="text" name="telepon" class="form-control" id="telepon" required>
+                            <input type="text" name="phone" class="form-control" id="phone" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="alamat" class="col-lg-2 control-label">Address</label>
+                        <label for="address" class="col-lg-2 control-label">Address</label>
                         <div class="col-lg-6">
-                            <textarea name="alamat" class="form-control" id="alamat" rows="3" required></textarea>
+                            <textarea name="address" class="form-control" id="address" rows="3" required></textarea>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
@@ -45,33 +45,33 @@
                         <label for="path_logo" class="col-lg-2 control-label">Logo</label>
                         <div class="col-lg-4">
                             <input type="file" name="path_logo" class="form-control" id="path_logo"
-                                onchange="preview('.tampil-logo', this.files[0])">
+                                onchange="preview('.display-logo', this.files[0])">
                             <span class="help-block with-errors"></span>
                             <br>
-                            <div class="tampil-logo"></div>
+                            <div class="display-logo"></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="path_kartu_member" class="col-lg-2 control-label">Membership Card</label>
+                        <label for="member_card_path" class="col-lg-2 control-label">Membership Card</label>
                         <div class="col-lg-4">
-                            <input type="file" name="path_kartu_member" class="form-control" id="path_kartu_member"
-                                onchange="preview('.tampil-kartu-member', this.files[0], 300)">
+                            <input type="file" name="member_card_path" class="form-control" id="member_card_path"
+                                onchange="preview('.display-member-card', this.files[0], 300)">
                             <span class="help-block with-errors"></span>
                             <br>
-                            <div class="tampil-kartu-member"></div>
+                            <div class="display-member-card"></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="diskon" class="col-lg-2 control-label">Discount</label>
+                        <label for="discount" class="col-lg-2 control-label">Discount</label>
                         <div class="col-lg-2">
-                            <input type="number" name="diskon" class="form-control" id="diskon" required>
+                            <input type="number" name="discount" class="form-control" id="discount" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="tipe_nota" class="col-lg-2 control-label">Note Type</label>
+                        <label for="note_type" class="col-lg-2 control-label">Note Type</label>
                         <div class="col-lg-2">
-                            <select name="tipe_nota" class="form-control" id="tipe_nota" required>
+                            <select name="note_type" class="form-control" id="note_type" required>
                                 <option value="1">Small Invoice</option>
                                 <option value="2">PDF Invoice</option>
                             </select>
@@ -92,7 +92,6 @@
 <script>
     $(function () {
         showData();
-
         $('.form-setting').validator().on('submit', function (e) {
             if (! e.preventDefault()) {
                 $.ajax({
@@ -104,15 +103,28 @@
                     contentType: false
                 })
                 .done(response => {
-                    showData();
+                    
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Data Saved Successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                        }).then(() => {
+                            showData();
                     $('.alert').fadeIn();
-
-                    setTimeout(() => {
+                            setTimeout(() => {
                         $('.alert').fadeOut();
                     }, 3000);
+                    });
+                  
                 })
                 .fail(errors => {
-                    alert('Unable to save data');
+                    Swal.fire({
+                            icon: "error",
+                            title: "Oops... Something went wrong!",
+                            text: "Unable to save the data. Please try again.",
+                        });
                     return;
                 });
             }
@@ -122,27 +134,31 @@
     function showData() {
         $.get('{{ route('setting.show') }}')
             .done(response => {
-                $('[name=nama_perusahaan]').val(response.nama_perusahaan);
-                $('[name=telepon]').val(response.telepon);
-                $('[name=alamat]').val(response.alamat);
-                $('[name=diskon]').val(response.diskon);
-                $('[name=tipe_nota]').val(response.tipe_nota);
-                $('title').text(response.nama_perusahaan + ' | Settings');
+                $('[name=company_name]').val(response.company_name);
+                $('[name=phone]').val(response.phone);
+                $('[name=address]').val(response.address);
+                $('[name=discount]').val(response.discount);
+                $('[name=note_type]').val(response.note_type);
+                $('title').text(response.company_name + ' | Settings');
                 
-                let words = response.nama_perusahaan.split(' ');
+                let words = response.company_name.split(' ');
                 let word  = '';
                 words.forEach(w => {
                     word += w.charAt(0);
                 });
                 $('.logo-mini').text(word);
-                $('.logo-lg').text(response.nama_perusahaan);
+                $('.logo-lg').text(response.company_name);
 
-                $('.tampil-logo').html(`<img src="{{ url('/') }}${response.path_logo}" width="200">`);
-                $('.tampil-kartu-member').html(`<img src="{{ url('/') }}${response.path_kartu_member}" width="300">`);
+                $('.display-logo').html(`<img src="{{ url('/') }}${response.path_logo}" width="200">`);
+                $('.display-member-card').html(`<img src="{{ url('/') }}${response.member_card_path}" width="300">`);
                 $('[rel=icon]').attr('href', `{{ url('/') }}/${response.path_logo}`);
             })
             .fail(errors => {
-                alert('Unable to display data');
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops... Something went wrong!",
+                    text: "Unable to display the data. Please try again.",
+                });
                 return;
             });
     }

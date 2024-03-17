@@ -13,9 +13,8 @@ class AddProductCodeToProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::table('m_products', function (Blueprint $table) {
             $table->string('product_code')
-                  ->unique()
                   ->after('branch_id');
         });
     }
@@ -27,7 +26,7 @@ class AddProductCodeToProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::table('m_products', function (Blueprint $table) {
             $table->dropColumn('product_code');
         });
     }

@@ -21,6 +21,9 @@
                     <thead>
                         <th width="5%">#</th>
                         <th>Branch</th>
+                        <th>Telephone</th>
+                        <th>Address</th>
+                        <th>Active</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
                 </table>
@@ -28,7 +31,7 @@
         </div>
     </div>
 </div>
-<!-- visit "codeastro" for more projects! -->
+
 
 @includeIf('branch.form')
 @endsection
@@ -49,6 +52,14 @@
             columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},
                 {data: 'branch_name'},
+                {data: 'phone'},
+                {data: 'address'},
+                {
+                    data: 'active',
+                    render: function(data, type, row) {
+                        return data == 1 ? 'Active' : 'Not Active';
+                    }
+                },
                 {data: 'action', searchable: false, sortable: false},
             ]
         });
@@ -57,11 +68,25 @@
             if (! e.preventDefault()) {
                 $.post($('#modal-form form').attr('action'), $('#modal-form form').serialize())
                     .done((response) => {
+                        Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Data Saved Successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                        }).then(() => {
                         $('#modal-form').modal('hide');
                         table.ajax.reload();
+                    });
+
+                       
                     })
                     .fail((errors) => {
-                        alert('Unable to save data');
+                        Swal.fire({
+                                icon: "error",
+                                title: "Oops... Duplicate Entry Detected!",
+                                text: "The data you are trying to save already exists and duplicates are not allowed. Please review and try again.",
+                            });
                         return;
                     });
             }
@@ -90,27 +115,57 @@
         $.get(url)
             .done((response) => {
                 $('#modal-form [name=branch_name]').val(response.branch_name);
+                $('#modal-form [name=phone]').val(response.phone);
+                $('#modal-form [name=address]').val(response.address);
+                $('#modal-form [name=active]').prop('checked', response.active == 1);
             })
             .fail((errors) => {
-                alert('Unable to display data');
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops... Something went wrong!",
+                    text: "Unable to display the data. Please try again.",
+                });
                 return;
             });
     }
 
     function deleteData(url) {
-        if (confirm('Are you sure you want to delete selected data?')) {
-            $.post(url, {
+
+        Swal.fire({
+            title: "Are you sure you want to delete selected data?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.post(url, {
                     '_token': $('[name=csrf-token]').attr('content'),
                     '_method': 'delete'
                 })
                 .done((response) => {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Data Deleted Successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                        }).then(() => {
                     table.ajax.reload();
+                    });
                 })
                 .fail((errors) => {
-                    alert('Cannot delete data');
+                    Swal.fire({
+                            icon: "error",
+                            title: "Oops... Something went wrong!",
+                            text: "Unable to delete the data. Please try again.",
+                        });
                     return;
                 });
-        }
+            }
+            });
     }
 </script>
 @endpush

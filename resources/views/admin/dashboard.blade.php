@@ -26,19 +26,19 @@
             <a href="{{ route('branch.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <!-- ./col --><!-- visit "codeastro" for more projects! -->
+    <!-- ./col -->
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-purple">
             <div class="inner">
-                <h3>{{ $produk }}</h3>
+                <h3>{{ $product }}</h3>
 
                 <p>Total Product</p>
             </div>
             <div class="icon">
                 <i class="fa fa-cubes"></i>
             </div>
-            <a href="{{ route('produk.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('product.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -80,14 +80,14 @@
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
-                <h3>{{ $penjualan }}</h3>
+                <h3>{{ $sales }}</h3>
 
                 <p>Sales</p>
             </div>
             <div class="icon">
                 <i class="fa fa-money"></i>
             </div>
-            <a href="{{ route('penjualan.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('sales.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
@@ -96,42 +96,42 @@
         <!-- small box -->
         <div class="small-box bg-red">
             <div class="inner">
-                <h3>{{ $pengeluaran }}</h3>
+                <h3>{{ $expenses }}</h3>
 
                 <p>Total Expenses</p>
             </div>
             <div class="icon">
                 <i class="fa fa-money"></i>
             </div>
-            <a href="{{ route('pengeluaran.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('expenses.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
-    <!-- visit "codeastro" for more projects! -->
+    
     <div class="col-lg-4 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-green">
             <div class="inner">
-                <h3>{{ $pembelian }}</h3>
+                <h3>{{ $purchases }}</h3>
 
                 <p>Total Purchase</p>
             </div>
             <div class="icon">
                 <i class="fa fa-money"></i>
             </div>
-            <a href="{{ route('pembelian.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('purchases.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <!-- ./col -->
 
-    <!-- visit "codeastro" for more projects! -->
+    
 </div>
 <!-- Main row -->
 <div class="row">
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
-                <h3 class="box-title">Income Chart {{ tanggal_indonesia($tanggal_awal, false) }} - {{ tanggal_indonesia($tanggal_akhir, false) }}</h3>
+                <h3 class="box-title">Income Chart {{ us_date($start_date, false) }} - {{ us_date($end_date, false) }}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -165,17 +165,17 @@ $(function() {
     var salesChart = new Chart(salesChartCanvas);
 
     var salesChartData = {
-        labels: {{ json_encode($data_tanggal) }},
+        labels: {{ json_encode($date_data) }},
         datasets: [
             {
-                label: 'Pendapatan',
+                label: 'Revenue',
                 fillColor           : 'rgba(60,141,188,0.9)',
                 strokeColor         : 'rgba(60,141,188,0.8)',
                 pointColor          : '#3b8bba',
                 pointStrokeColor    : 'rgba(60,141,188,1)',
                 pointHighlightFill  : '#fff',
                 pointHighlightStroke: 'rgba(60,141,188,1)',
-                data: {{ json_encode($data_pendapatan) }}
+                data: {{ json_encode($income_data) }}
             }
         ]
     };

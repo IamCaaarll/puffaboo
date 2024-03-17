@@ -45,7 +45,7 @@ class BranchController extends Controller
     {
         //
     }
-    // visit "codeastro" for more projects!
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -56,6 +56,9 @@ class BranchController extends Controller
     {
         $branch = new Branch();
         $branch->branch_name = $request->branch_name;
+        $branch->phone = $request->phone;
+        $branch->address = $request->address;
+        $branch->active = (!$request->active)? 0 : 1;
         $branch->save();
 
         return response()->json('Data saved successfully', 200);
@@ -96,6 +99,9 @@ class BranchController extends Controller
     {
         $branch = Branch::find($id);
         $branch->branch_name = $request->branch_name;
+        $branch->phone = $request->phone;
+        $branch->address = $request->address;
+        $branch->active = (!$request->active)? 0 : 1;
         $branch->save();
 
         return response()->json('Data saved successfully', 200);

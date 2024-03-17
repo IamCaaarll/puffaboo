@@ -13,7 +13,7 @@ class CreatePurchaseDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('purchase_details', function (Blueprint $table) {
+        Schema::create('t_purchases_detail', function (Blueprint $table) {
             $table->increments('purchase_detail_id');
             $table->integer('purchase_id');
             $table->integer('product_id');
@@ -31,6 +31,6 @@ class CreatePurchaseDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_details');
+        Schema::dropIfExists('t_purchases_detail');
     }
 }
