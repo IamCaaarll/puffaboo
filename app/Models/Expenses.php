@@ -12,4 +12,9 @@ class Expenses extends Model
     protected $table = 't_expenses';
     protected $primaryKey = 'expense_id';
     protected $guarded = [];
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id','branch_id');
+    }
 }

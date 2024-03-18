@@ -1,14 +1,11 @@
 <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form">
     <div class="modal-dialog modal-lg" role="document">
-        <form action="" method="post" class="form-horizontal">
-            @csrf
-            @method('post')
-
+        <form action="{{ route('stock_report.index') }}" method="get" data-toggle="validator" class="form-horizontal">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"></h4>
+                    <h4 class="modal-title">Reporting Period</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">
@@ -17,23 +14,9 @@
                             <select name="branch_id" id="branch_id" class="form-control" required>
                                 <option value="">Select Branch</option>
                                 @foreach ($branch as $key => $item)
-                                <option value="{{ $key }}">{{ $item }}</option>
+                                <option value="{{ $key }}" @if($key == request('branch_id')) selected @endif>{{ $item }}</option>
                                 @endforeach
                             </select>
-                            <span class="help-block with-errors"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="description" class="col-lg-2 col-lg-offset-1 control-label">Description</label>
-                        <div class="col-lg-6">
-                            <input type="text" name="description" id="description" class="form-control" required autofocus>
-                            <span class="help-block with-errors"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="amount" class="col-lg-2 col-lg-offset-1 control-label">Amount</label>
-                        <div class="col-lg-6">
-                            <input type="number" name="amount" id="amount" class="form-control" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>

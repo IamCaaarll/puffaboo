@@ -42,7 +42,9 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{ route('user.profile') }}" class="btn btn-primary btn-flat">My Profile</a>
+                                @if(auth()->user()->level == 1)
+                                    <a href="{{ route('user.profile') }}" class="btn btn-primary btn-flat">My Profile</a>
+                                @endif
                             </div>
                             <div class="pull-right">
                                 <a href="#" class="btn btn-danger btn-flat"

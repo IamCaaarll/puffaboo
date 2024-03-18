@@ -5,6 +5,7 @@ use App\Http\Controllers\{
     BranchController,
     ReportController,
     ReportProductController,
+    StockReportController,
     ProductController,
     MemberController,
     ExpensesController,
@@ -92,6 +93,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/report_product', [ReportProductController::class, 'index'])->name('report_product.index');
         Route::get('/report_product/data/{branch_id}/{start}/{end}', [ReportProductController::class, 'data'])->name('report_product.data');
         Route::get('/report_product/pdf/{branch_id}/{start}/{end}', [ReportProductController::class, 'exportPDF'])->name('report_product.export_pdf');
+
+        Route::get('/stock_report', [StockReportController::class, 'index'])->name('stock_report.index');
+        Route::get('/stock_report/data/{branch_id}', [StockReportController::class, 'data'])->name('stock_report.data');
+        Route::get('/stock_report/pdf/{branch_id}', [StockReportController::class, 'exportPDF'])->name('stock_report.export_pdf');
 
         Route::get('/user/data', [UserController::class, 'data'])->name('user.data');
         Route::resource('/user', UserController::class);

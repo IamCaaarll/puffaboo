@@ -10,6 +10,7 @@
                 <table class="table table-striped table-bordered table-product table-hover">
                     <thead>
                         <th width="5%">#</th>
+                        <th>Branch</th>
                         <th>Code</th>
                         <th>Name</th>
                         <th>Purchase Price</th>
@@ -19,6 +20,7 @@
                         @foreach ($product as $key => $item)
                             <tr>
                                 <td width="5%">{{ $key+1 }}</td>
+                                <td>{{ $item->branch['branch_name']  }}</span></td> 
                                 <td><span class="label label-success">{{ $item->product_code }}</span></td>
                                 <td>{{ $item->brand.' ('.$item->product_name.')'  }}</td>
                                 <td>{{ $item->purchase_price }}</td>

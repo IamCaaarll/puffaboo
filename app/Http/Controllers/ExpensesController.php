@@ -4,18 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Expenses;
+use App\Models\Branch;
 
 class ExpensesController extends Controller
 {
     public function index()
     {
-        return view('expenses.index');
+        $branch = Branch::where('active','1')->pluck('branch_name', 'branch_id');
+        return view('expenses.index',compact('branch'));
     }
 
     public function data()
     {
-        $expenses = Expenses::orderBy('expense_id', 'desc')->get();
-
+        $expenses = Expenses::leftJoin('m_branch', 'm_branch.branch_id', 't_expenses.branch_id')
+        ->select('t_expenses.*', 'branch_name', 'active')
+        ->orderBy('expense_id', 'desc')->get();
         return datatables()
             ->of($expenses)
             ->addIndexColumn()

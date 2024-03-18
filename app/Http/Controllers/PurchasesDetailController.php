@@ -13,7 +13,7 @@ class PurchasesDetailController extends Controller
     public function index()
     {
         $purchase_id = session('purchase_id');
-        $product = Product::orderBy('product_name')->get();
+        $product = Product::with('branch')->orderBy('product_name')->get();
         $supplier = Supplier::find(session('supplier_id'));
         $discount = Purchases::find($purchase_id)->discount ?? 0;
 
@@ -38,10 +38,10 @@ class PurchasesDetailController extends Controller
             $row['product_code'] = '<span class="label label-success">'. $item->product['product_code'] .'</span';
             $row['product_name'] = $item->product['product_name'];
             $row['purchase_price']  = '₱ '. format_money($item->purchase_price);
-            $row['quantity']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->purchases_detail_id .'" value="'. $item->quantitu .'">';
+            $row['quantity']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->purchase_detail_id .'" value="'. $item->quantity .'">';
             $row['subtotal']    = '₱ '. format_money($item->subtotal);
             $row['action']        = '<div class="btn-group">
-                                    <button onclick="deleteData(`'. route('purchases_detail.destroy', $item->purchases_detail_id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                                    <button onclick="deleteData(`'. route('purchases_detail.destroy', $item->purchase_detail_id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                                 </div>';
             $data[] = $row;
 

@@ -12,6 +12,7 @@ class PurchasesController extends Controller
 {
     public function index()
     {
+        
         $supplier = Supplier::orderBy('name')->get();
 
         return view('purchases.index', compact('supplier'));
@@ -74,7 +75,7 @@ class PurchasesController extends Controller
     {
         $purchases = Purchases::findOrFail($request->purchase_id);
         $purchases->total_item = $request->total_item;
-        $purchases->total_price = $request->total_price;
+        $purchases->total_price = $request->total;
         $purchases->discount = $request->discount;
         $purchases->payment = $request->payment;
         $purchases->update();
@@ -91,16 +92,19 @@ class PurchasesController extends Controller
 
     public function show($id)
     {
-        $detail = PurchasesDetail::with('product')->where('purchase_id', $id)->get();
+        $detail = PurchasesDetail::with('product.branch')->where('purchase_id', $id)->get();
 
         return datatables()
             ->of($detail)
             ->addIndexColumn()
+            ->addColumn('branch_name', function ($detail) {
+                return $detail->product->branch->branch_name ;
+            })
             ->addColumn('product_code', function ($detail) {
                 return '<span class="label label-success">'. $detail->product->product_code .'</span>';
             })
             ->addColumn('product_name', function ($detail) {
-                return $detail->product->product_name;
+                return $detail->product->product_name.' ('.$detail->product->brand.')';
             })
             ->addColumn('purchase_price', function ($detail) {
                 return '₱ '. format_money($detail->purchase_price);

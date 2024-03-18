@@ -52,7 +52,7 @@ Purchase
                     </tr>
                     <tr>
                         <td>Address</td>
-                        <td>: {{ $supplier->addres }}</td>
+                        <td>: {{ $supplier->address }}</td>
                     </tr>
                 </table>
             </div>
@@ -164,6 +164,7 @@ Purchase
         .on('draw.dt', function () {
             loadForm($('#discount').val());
         });
+
         table2 = $('.table-product').DataTable();
 
         $(document).on('input', '.quantity', function () {
@@ -230,9 +231,9 @@ Purchase
         $('#modal-product').modal('hide');
     }
 
-    function pilihProduct(id, kode) {
+    function selectProduct(id, code) {
         $('#product_id').val(id);
-        $('#product_code').val(kode);
+        $('#product_code').val(code);
         hideProduct();
         addProduct();
     }

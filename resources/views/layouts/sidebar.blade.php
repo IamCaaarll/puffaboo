@@ -9,7 +9,12 @@
             </div>
             <div class="pull-left info">
                 <p>{{ auth()->user()->name }}</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                @if(auth()->user()->level == 1)
+                <a href="#"><i class="fa fa-circle text-success"></i> {{ auth()->user()->email }}</a>
+                @else
+                <a href="#"><i class="fa fa-circle text-success"></i> {{ auth()->user()->branch->branch_name }}</a>
+                @endif
+            
             </div>
         </div>
         
@@ -72,6 +77,11 @@
             </li>
             
             <li class="header">REPORT</li>
+            <li>
+                <a href="{{ route('stock_report.index') }}">
+                    <i class="fa fa-file-pdf-o"></i> <span>Inventory Report</span>
+                </a>
+            </li>
             <li>
                 <a href="{{ route('report.index') }}">
                     <i class="fa fa-file-pdf-o"></i> <span>Daily Income</span>

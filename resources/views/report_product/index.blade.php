@@ -32,6 +32,7 @@ Product Income Report ({{ us_date($startDate, false) }} - {{ us_date($endDate, f
                         <th>Price</th>
                         <th>Selling Price</th>
                         <th>Purchase Price</th>
+                        <th>Gross Profit</th>
                     </thead>
                 </table>
             </div>
@@ -65,6 +66,7 @@ Product Income Report ({{ us_date($startDate, false) }} - {{ us_date($endDate, f
                 {data: 'subtotal'},
                 {data: 'selling_price'},
                 {data: 'purchase_price'},
+                {data: 'income'},
             ]
         });
 

@@ -7,6 +7,7 @@
                 <h4 class="modal-title">Select Supplier</h4>
             </div>
             <div class="modal-body">
+                
                 <table class="table table-striped table-bordered table-supplier table-hover">
                     <thead>
                         <th width="5%">#</th>

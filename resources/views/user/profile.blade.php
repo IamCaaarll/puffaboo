@@ -31,7 +31,7 @@
                         <label for="picture" class="col-lg-2 control-label">Profile</label>
                         <div class="col-lg-4">
                             <input type="file" name="picture" class="form-control" id="picture"
-                                onchange="preview('.tampil-picture', this.files[0])">
+                                onchange="preview('.tampil-picture', this.files[0])" disabled>
                             <span class="help-block with-errors"></span>
                             <br>
                             <div class="display-photo">

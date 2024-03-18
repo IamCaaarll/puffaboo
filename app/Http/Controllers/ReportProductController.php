@@ -37,6 +37,7 @@ class ReportProductController extends Controller
         $no = 1;
         $data = array();
         $total_purchase_price = 0;
+        $total_sales = 0;
         $total_income = 0;
         $sales = SalesDetail::whereBetween(DB::raw('DATE(created_at)'), [$start, $end])
         ->whereHas('product.branch', function ($query) use ($branch_id) {
@@ -44,20 +45,21 @@ class ReportProductController extends Controller
         })
         ->with('product.branch')
         ->get(['*', 'created_at']);
-        Log::error($sales);
         foreach($sales as $detail)
         {
             $row = array();
             $row['DT_RowIndex'] = $no++;
             $row['date'] = us_date($detail->created_at, false);
             $row['branch'] = $detail->product->branch->branch_name ?? '';
-            $row['product_name'] = $detail->product->brand.' ('.$detail->product->product_name.')';
+            $row['product_name'] = $detail->product->product_name.' ('.$detail->product->brand.')';
             $row['quantity'] = $detail->quantity;
             $row['subtotal'] =  format_money($detail->subtotal);
             $row['selling_price'] = format_money($detail->product->selling_price);
             $row['purchase_price'] = format_money($detail->quantity * $detail->product->purchase_price);
+            $row['income'] =  $row['subtotal'] - $row['purchase_price'];
 
-            $total_income +=  $row['subtotal'] ;
+            $total_sales +=  $row['subtotal'] ;
+            $total_income += $row['income'];
             $total_purchase_price +=$row['purchase_price'];
             $data[] = $row;
         }
@@ -66,10 +68,12 @@ class ReportProductController extends Controller
             'date' => '',
             'branch' => '',
             'product_name' => '',
-            'quantity' => 'Total Income',
-            'subtotal' => format_money($total_income),
-            'selling_price' => 'Total Capital',
+            'quantity' => 'Total Sales',
+            'subtotal' => format_money($total_sales),
+            'selling_price' => 'Total Capital & Profit',
             'purchase_price' => format_money($total_purchase_price),
+            'income' => format_money( $total_income),
+
         ];
         return $data;
     }

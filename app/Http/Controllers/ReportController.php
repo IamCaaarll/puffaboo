@@ -8,7 +8,6 @@ use App\Models\Branch;
 use App\Models\Sales;
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Log;
 use PDF;
 
 class ReportController extends Controller
@@ -34,8 +33,10 @@ class ReportController extends Controller
     {            
         $no = 1;
         $data = array();
-        $income = 0;
-        $total_income = 0;
+        $net_income = 0;
+        $gross_income = 0;
+        $total_net_income = 0;
+        $total_gross_income = 0;
 
         while (strtotime($start) <= strtotime($end)) {
             $date = $start;
@@ -52,20 +53,53 @@ class ReportController extends Controller
                 // Calculate the sum of subtotal for each sale
                 return $sale->salesDetails->sum('subtotal');
             });
-              //$total_sales = Sales::where('created_at', 'LIKE', "%$date%")->sum('payment');
-            $total_purchases = Purchases::where('created_at', 'LIKE', "%$date%")->sum('payment');
-            $total_expenses = Expenses::where('created_at', 'LIKE', "%$date%")->sum('amount');
 
-            $income = $total_sales - $total_purchases - $total_expenses;
-            $total_income += $income;
+            $total_capital = Sales::where('created_at', 'LIKE', "%$date%")
+            ->with(['salesDetails.product'])
+            ->whereHas('salesDetails.product', function ($query) use ($branch_id) {
+                // Filter sales by product's branch_id
+                $query->where('branch_id', $branch_id);
+            })
+            ->get()
+            ->sum(function ($sale) {
+                // Calculate the sum of purchase_price * quantity for each product in sale details
+                return $sale->salesDetails->sum(function ($salesDetail) {
+                    // Accessing the purchase_price and quantity of each product
+                    return $salesDetail->product->purchase_price * $salesDetail->quantity;
+                });
+            });
+
+            $total_purchases = Purchases::where('created_at', 'LIKE', "%$date%")
+            ->with(['purchasesDetails.product'])
+            ->whereHas('purchasesDetails.product', function ($query) use ($branch_id) {
+                // Filter sales by product's branch_id
+                $query->where('branch_id', $branch_id);
+            })
+            ->get()
+            ->sum(function ($purchases) {
+                // Calculate the sum of subtotal for each sale
+                return $purchases->purchasesDetails->sum('subtotal');
+            });
+            $total_expenses = Expenses::where('created_at', 'LIKE', "%$date%")
+                ->whereHas('branch', function ($query) use ($branch_id) {
+                    // Filter expenses by branch_id
+                    $query->where('branch_id', $branch_id);
+                })
+                ->sum('amount');
+            $gross_income =  $total_sales - $total_capital;
+            $net_income =  $total_sales -$total_capital- $total_purchases - $total_expenses;
+            $total_net_income += $net_income;
+            $total_gross_income += $gross_income;
 
             $row = array();
             $row['DT_RowIndex'] = $no++;
             $row['date'] = us_date($date, false);
+            $row['capital'] = format_money($total_capital);
             $row['sales'] = format_money($total_sales);
             $row['purchases'] = format_money($total_purchases);
             $row['expenses'] = format_money($total_expenses);
-            $row['income'] = format_money($income);
+            $row['gross_income'] = format_money($gross_income);
+            $row['net_income'] = format_money($net_income);
 
             $data[] = $row;
         }
@@ -73,10 +107,12 @@ class ReportController extends Controller
         $data[] = [
             'DT_RowIndex' => '',
             'date' => '',
+            'capital' => '',
             'sales' => '',
             'purchases' => '',
-            'expenses' => 'Total Income',
-            'income' => format_money($total_income),
+            'expenses' => 'Total Gross & Net Income',
+            'gross_income' => format_money($gross_income),
+            'net_income' => format_money($total_net_income),
         ];
         return $data;
     }

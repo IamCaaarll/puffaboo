@@ -113,7 +113,7 @@ class SalesController extends Controller
                 return '<span class="label label-success">'. $detail->product->product_code .'</span>';
             })
             ->addColumn('product_name', function ($detail) {
-                return $detail->product->brand. '('.$detail->product->product_name.')';
+                return $detail->product->product_name. '('.$detail->product->brand.')';
             })
             ->addColumn('selling_price', function ($detail) {
                 return '₱ '. format_money($detail->selling_price);

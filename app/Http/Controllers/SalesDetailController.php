@@ -15,9 +15,11 @@ class SalesDetailController extends Controller
     public function index()
     {
         if(auth()->user()->level == 2){
-            $product = Product::where('branch_id', auth()->user()->branch_id)->orderBy('product_name')->get();
+            $product = Product::where('branch_id', auth()->user()->branch_id)
+            ->where('stock', '>', 0)
+            ->orderBy('product_name')->get();
         }else{
-             $product = Product::orderBy('product_name')->get(); 
+             $product = Product::where('stock', '>', 0)->orderBy('product_name')->get(); 
         }
         $member = Member::orderBy('name')->get();
         $discount = Setting::first()->discount ?? 0;
@@ -49,10 +51,11 @@ class SalesDetailController extends Controller
 
         foreach ($detail as $item) {
             $row = array();
-            $row['product_code'] = '<span class="label label-success">'. $item->product['product_code'] .'</span';
-            $row['product_name'] = $item->product['product_name'];
+            $row['product_code'] = '<span class="label label-success">'. $item->product['product_code'] .'</span>';
+            $row['product_name'] = $item->product['product_name'].' ('.$item->product['brand'].')';
             $row['selling_price']  = '₱ '. format_money($item->selling_price);
-            $row['quantity']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->sales_detail_id .'" value="'. $item->quantity .'">';
+            $row['stock'] = $item->product['stock'];
+            $row['quantity']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->sales_detail_id .'" data-stock="'. $item->product['stock'].'" value="'. $item->quantity .'">';
             $row['discount']      = $item->discount . '%';
             $row['subtotal']    = '₱ '. format_money($item->subtotal);
             $row['action']        = '<div class="btn-group">
@@ -69,6 +72,7 @@ class SalesDetailController extends Controller
                 <div class="total_item hide">'. $total_item .'</div>',
             'product_name' => '',
             'selling_price'  => '',
+            'stock'  => '',
             'quantity'      => '',
             'discount'      => '',
             'subtotal'    => '',

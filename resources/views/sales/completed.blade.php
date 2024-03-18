@@ -20,11 +20,11 @@
                 </div>
             </div>
             <div class="box-footer">
-                @if ($setting->note_type == 1)
+                {{-- @if ($setting->note_type == 1)
                 <button class="btn btn-warning btn-flat" onclick="smallNote('{{ route('transaction.small_note') }}', 'Small Note')">Print Invoice</button>
                 @else
                 <button class="btn btn-warning btn-flat" onclick="largeNote('{{ route('transaction.large_note') }}', 'PDF Note')">Print Invoice</button>
-                @endif
+                @endif --}}
                 <a href="{{ route('transaction.new') }}" class="btn btn-primary btn-flat">New Transaction</a>
             </div>
         </div>

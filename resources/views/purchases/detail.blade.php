@@ -11,6 +11,7 @@
                     <thead>
                         <th width="5%">#</th>
                         <th>Code</th>
+                        <th>Branch</th>
                         <th>Name</th>
                         <th>Price</th>
                         <th>Quantity</th>

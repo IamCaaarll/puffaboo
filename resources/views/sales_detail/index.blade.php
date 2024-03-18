@@ -65,6 +65,7 @@ Sales Transactions
                         <th>Code</th>
                         <th>Name</th>
                         <th>Price</th>
+                        <th>Stock</th>
                         <th width="15%">Quantity</th>
                         <th>Discount</th>
                         <th>Subtotal</th>
@@ -165,6 +166,7 @@ Sales Transactions
                 {data: 'product_code'},
                 {data: 'product_name'},
                 {data: 'selling_price'},
+                {data: 'stock'},
                 {data: 'quantity'},
                 {data: 'discount'},
                 {data: 'subtotal'},
@@ -184,6 +186,7 @@ Sales Transactions
 
         $(document).on('input', '.quantity', function () {
             let id = $(this).data('id');
+            let stock = $(this).data('stock');
             let quantity = parseInt($(this).val());
 
             if (quantity < 1) {
@@ -195,12 +198,12 @@ Sales Transactions
                         });
                 return;
             }
-            if (quantity > 10000) {
-                $(this).val(10000);
+            if (quantity > stock) {
+                $(this).val(stock);
                 Swal.fire({
                             icon: "error",
                             title: "Oops... Something went wrong!",
-                            text: "The number cannot exceed 10,000. Please try again.",
+                            text: "The quantity cannot exceed "+stock+" quantity. Please adjust the quantity and try again",
                         });
                 return;
             }

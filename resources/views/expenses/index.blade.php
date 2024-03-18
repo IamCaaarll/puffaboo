@@ -21,6 +21,7 @@
                     <thead>
                         <th width="5%">#</th>
                         <th>Date</th>
+                        <th>Branch</th>
                         <th>Description</th>
                         <th>Amount</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
@@ -50,6 +51,7 @@
             columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},
                 {data: 'created_at'},
+                {data: 'branch_name'},
                 {data: 'description'},
                 {data: 'amount'},
                 {data: 'action', searchable: false, sortable: false},
@@ -104,6 +106,7 @@
 
         $.get(url)
             .done((response) => {
+                $('#modal-form [name=branch_id]').val(response.branch_id);
                 $('#modal-form [name=description]').val(response.description);
                 $('#modal-form [name=amount]').val(response.amount);
             })

@@ -74,6 +74,7 @@
             columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},
                 {data: 'product_code'},
+                {data: 'branch_name'},
                 {data: 'product_name'},
                 {data: 'purchase_price'},
                 {data: 'quantity'},
