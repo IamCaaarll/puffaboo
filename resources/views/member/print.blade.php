@@ -38,6 +38,7 @@
         .logo img {
             position: absolute;
             margin-top: -5pt;
+            right: 150pt;
             width: 100px;
             height: 100px;
             right: 16pt;
@@ -55,6 +56,7 @@
             position: absolute;
             top: 100pt;
             right: 16pt;
+            text-align: left;
             color: #fff;
         }
         .barcode {
@@ -90,11 +92,7 @@
                                 <img src="{{ public_path($setting->member_card_path) }}" alt="card" width="100%">
                                 <div class="name">{{ $item->name  }}</div>
                                 <div class="phone">{{ $item->phone }}</div>
-                                <div class="barcode text-left">
-                                    <img src="data:image/png;base64, {{ DNS2D::getBarcodePNG("$item->member_code", 'QRCODE') }}" alt="qrcode"
-                                        height="45"
-                                        widht="45">
-                                </div>
+                               
                             </div>
                         </td>
                         
