@@ -28,6 +28,7 @@
                 <th>Price</th>
                 <th>Selling Price</th>
                 <th>Purchase Price</th>
+                <th>Gross Profit</th>
             </tr>
         </thead>
         <tbody>
