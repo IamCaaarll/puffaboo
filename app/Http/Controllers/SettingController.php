@@ -14,7 +14,7 @@ class SettingController extends Controller
 
     public function show()
     {
-        return Setting::first();
+        return null; //Setting::first();
     }
 
     public function update(Request $request)

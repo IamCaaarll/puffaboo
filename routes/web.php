@@ -5,6 +5,7 @@ use App\Http\Controllers\{
     BranchController,
     ReportController,
     ReportProductController,
+    ExpensesReportController,
     StockReportController,
     ProductController,
     MemberController,
@@ -17,6 +18,7 @@ use App\Http\Controllers\{
     SupplierController,
     UserController,
 };
+use App\Models\Expenses;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -90,6 +92,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/report/data/{branch_id}/{start}/{end}', [ReportController::class, 'data'])->name('report.data');
         Route::get('/report/pdf/{branch_id}/{start}/{end}', [ReportController::class, 'exportPDF'])->name('report.export_pdf');
         
+        Route::get('/expenses_report', [ExpensesReportController::class, 'index'])->name('expenses_report.index');
+        Route::get('/expenses_report/data/{branch_id}/{start}/{end}', [ExpensesReportController::class, 'data'])->name('expenses_report.data');
+        Route::get('/expenses_report/pdf/{branch_id}/{start}/{end}', [ExpensesReportController::class, 'exportPDF'])->name('expenses_report.export_pdf');
+
         Route::get('/report_product', [ReportProductController::class, 'index'])->name('report_product.index');
         Route::get('/report_product/data/{branch_id}/{start}/{end}', [ReportProductController::class, 'data'])->name('report_product.data');
         Route::get('/report_product/pdf/{branch_id}/{start}/{end}', [ReportProductController::class, 'exportPDF'])->name('report_product.export_pdf');

@@ -78,6 +78,11 @@
             
             <li class="header">REPORT</li>
             <li>
+                <a href="{{ route('expenses_report.index') }}">
+                    <i class="fa fa-file-pdf-o"></i> <span>Expenses Report</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('stock_report.index') }}">
                     <i class="fa fa-file-pdf-o"></i> <span>Inventory Report</span>
                 </a>

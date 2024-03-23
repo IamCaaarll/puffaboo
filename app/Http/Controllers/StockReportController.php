@@ -25,6 +25,8 @@ class StockReportController extends Controller
             
         $no = 1;
         $data = array();
+        $total_purchases = 0;
+        $total_stock = 0;
         $product = Product::whereHas('branch', function ($query) use ($branch_id) {
             $query->where('branch_id', $branch_id);
         })
@@ -39,9 +41,19 @@ class StockReportController extends Controller
             $row['discount'] = format_money($detail->discount);
             $row['stock'] = $detail->stock;
         
+            $total_purchases += $detail->purchase_price;
+            $total_stock += $detail->stock;
             $data[] = $row;
         }
+        $data[] = [ 
+            'DT_RowIndex' => '',
+            'product_name' => 'Total Purchase',
+            'purchase_price' => format_money($total_purchases),
+            'selling_price' => '',
+            'discount' => 'Total Stock',
+            'stock' => format_money($total_stock),
 
+        ];
         return $data;
     }
 

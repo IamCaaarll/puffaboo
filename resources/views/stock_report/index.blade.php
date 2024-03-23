@@ -23,7 +23,7 @@ Product Inventory Report
                 <a href="{{ route('stock_report.export_pdf', [$branch_id]) }}" target="_blank" class="btn btn-success btn-flat"><i class="fa fa-file-excel-o"></i> Export PDF</a> 
             </div>
             <div class="box-body table-responsive">
-                <table class="table table-stiped table-bordered table-hover">
+                 <table class="table table-stiped table-bordered table-sales table-hover">
                     <thead>
                         <th width="5%">#</th>
                         <th>Product Name</th>
@@ -47,11 +47,13 @@ Product Inventory Report
     let table;
 
     $(function () {
-        table = $('.table').DataTable({
+        table = $('.table-sales').DataTable({
             responsive: true,
             processing: true,
             serverSide: true,
             autoWidth: false,
+            paging: true, // Enable pagination
+            pageLength: 10, // Set the number of records per page
             ajax: {
                 url: '{{ route('stock_report.data', [$branch_id]) }}',
             },
@@ -63,9 +65,6 @@ Product Inventory Report
                 {data: 'discount'},
                 {data: 'stock'},
             ],
-            dom: 'Brt',
-            bSort: false,
-            bPaginate: false,
         });
 
     });

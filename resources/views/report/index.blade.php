@@ -53,6 +53,8 @@ Daily Income Report ({{ us_date($startDate, false) }} - {{ us_date($endDate, fal
             processing: true,
             serverSide: true,
             autoWidth: false,
+            paging: true, // Enable pagination
+            pageLength: 10, // Set the number of records per page
             ajax: {
                 url: '{{ route('report.data', [$branch_id,$startDate, $endDate]) }}',
             },

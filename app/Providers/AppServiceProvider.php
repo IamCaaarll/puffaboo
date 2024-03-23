@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Setting;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\Log;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('setting', Setting::first());
         });
         view()->composer('layouts.auth', function ($view) {
+            Log::error(Setting::first());
             $view->with('setting', Setting::first());
         });
         view()->composer('auth.login', function ($view) {
